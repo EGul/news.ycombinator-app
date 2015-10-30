@@ -150,6 +150,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     limitCount = 0
                     limitTimer.invalidate()
                 }
+                
+                if limitCount == -1 && leftPickerViewLimit > limitCount {
+                    limitCount = 0
+                }
 
                 if limitCount > leftPickerViewLimit {
                     limitCount = leftPickerViewLimit
