@@ -11,9 +11,14 @@ import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
 
     var dataArr = NSMutableArray()
+    
+    let width = UIScreen.mainScreen().bounds.size.width
+    let height = UIScreen.mainScreen().bounds.size.height
 
     var limitView = UIView()
     var limitViewLabel = UILabel()
+    var limitMaxLimitLabel = UILabel()
+    var limitIntervalLabel = UILabel()
     var limitCount = 0
     var maxLimit = 5
     var limitTimer = NSTimer()
@@ -38,13 +43,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let width = UIScreen.mainScreen().bounds.size.width
-        let height = UIScreen.mainScreen().bounds.size.height
-
         self.navigationController?.navigationBar.topItem?.title = "news.ycombinator"
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         self.navigationController?.navigationBar.barTintColor = UIColor.orangeColor()
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
 
         let statusHeight = UIApplication.sharedApplication().statusBarFrame.height
         let navHeight = self.navigationController?.navigationBar.frame.size.height
@@ -60,12 +64,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         limitViewLabel.textAlignment = NSTextAlignment.Center
 
         let limitViewSpace = limitView.frame.origin.y + limitView.frame.size.height
-        let limitMaxLimitLabel = UILabel(frame: CGRectMake(10, limitViewSpace, width / 2, 50))
+        limitMaxLimitLabel = UILabel(frame: CGRectMake(10, limitViewSpace, width / 2, 50))
         limitMaxLimitLabel.text = "Maximum Read"
         limitMaxLimitLabel.textAlignment = NSTextAlignment.Center
         limitMaxLimitLabel.layer.zPosition = -100
 
-        let limitIntervalLabel = UILabel(frame: CGRectMake(width / 2, limitViewSpace, width / 2, 50))
+        limitIntervalLabel = UILabel(frame: CGRectMake(width / 2, limitViewSpace, width / 2, 50))
         limitIntervalLabel.text = "Reset Interval"
         limitIntervalLabel.textAlignment = NSTextAlignment.Center
         limitIntervalLabel.layer.zPosition = -100
@@ -117,7 +121,103 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func rotated() {
+        
+        let statusHeight = UIApplication.sharedApplication().statusBarFrame.height
+        let navHeight = self.navigationController?.navigationBar.frame.size.height
+        let topHeight = statusHeight + navHeight!
+        
+        let leftPickerViewSelectedRow = leftPickerView.selectedRowInComponent(0)
+        let rightPickerViewSelectedRow = rightPickerView.selectedRowInComponent(0)
+        
+        if UIDevice.currentDevice().orientation == UIDeviceOrientation.Portrait {
+            
+            limitView.frame = CGRectMake(0, topHeight, width, 50)
+            limitViewLabel.frame = CGRectMake(0, 0, width, 50)
+            
+            let limitViewSpace = limitView.frame.origin.y + limitView.frame.size.height
+            
+            limitMaxLimitLabel.frame = CGRectMake(10, limitViewSpace, width / 2, 50)
+            limitIntervalLabel.frame = CGRectMake(width / 2, limitViewSpace, width / 2, 50)
+            
+            let limitPickerLabelSpace = limitIntervalLabel.frame.origin.y + limitIntervalLabel.frame.size.height
+            
+            let toLeftPickerView = UIPickerView(frame: CGRectMake(0, limitPickerLabelSpace, width / 2, leftPickerView.frame.size.height))
+            toLeftPickerView.layer.zPosition = -100
+            toLeftPickerView.userInteractionEnabled = false
+            
+            let toRightPickerView = UIPickerView(frame: CGRectMake(width / 2, limitPickerLabelSpace, width / 2, leftPickerView.frame.size.height))
+            toRightPickerView.layer.zPosition = -100
+            toRightPickerView.userInteractionEnabled = false
+            
+            leftPickerView.removeFromSuperview()
+            self.view.addSubview(toLeftPickerView)
+            leftPickerView = toLeftPickerView
+            
+            rightPickerView.removeFromSuperview()
+            self.view.addSubview(toRightPickerView)
+            rightPickerView = toRightPickerView
+            
+            leftPickerView.delegate = self
+            leftPickerView.dataSource = self
+            
+            rightPickerView.delegate = self
+            rightPickerView.dataSource = self
+            
+            leftPickerView.selectRow(leftPickerViewSelectedRow, inComponent: 0, animated: false)
+            rightPickerView.selectRow(rightPickerViewSelectedRow, inComponent: 0, animated: false)
+            
+            mainTableView.frame = CGRectMake(0, limitViewSpace, width, height)
+            
+        }
+        
+        if UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation) {
+            
+            limitView.frame = CGRectMake(0, topHeight, height, 50)
+            limitViewLabel.frame = CGRectMake(0, 0, height, 50)
+            
+            let limitViewSpace = limitView.frame.origin.y + limitView.frame.size.height
 
+            limitMaxLimitLabel.frame = CGRectMake(10, limitViewSpace, height / 2, 50)
+            limitIntervalLabel.frame = CGRectMake(height / 2, limitViewSpace, height / 2, 50)
+            
+            let limitPickerLabelSpace = limitIntervalLabel.frame.origin.y + limitIntervalLabel.frame.size.height
+            
+            let toLeftPickerView = UIPickerView(frame: CGRectMake(0, limitPickerLabelSpace, height / 2, leftPickerView.frame.size.height))
+            toLeftPickerView.layer.zPosition = -100
+            toLeftPickerView.userInteractionEnabled = false
+            
+            let toRightPickerView = UIPickerView(frame: CGRectMake(height / 2, limitPickerLabelSpace, height / 2, leftPickerView.frame.size.height))
+            toRightPickerView.layer.zPosition = -100
+            toRightPickerView.userInteractionEnabled = false
+            
+            leftPickerView.removeFromSuperview()
+            self.view.addSubview(toLeftPickerView)
+            leftPickerView = toLeftPickerView
+            
+            rightPickerView.removeFromSuperview()
+            self.view.addSubview(toRightPickerView)
+            rightPickerView = toRightPickerView
+            
+            leftPickerView.delegate = self
+            leftPickerView.dataSource = self
+            
+            rightPickerView.delegate = self
+            rightPickerView.dataSource = self
+            
+            leftPickerView.selectRow(leftPickerViewSelectedRow, inComponent: 0, animated: false)
+            rightPickerView.selectRow(rightPickerViewSelectedRow, inComponent: 0, animated: false)
+            
+            mainTableView.frame = CGRectMake(0, limitViewSpace, height, width)
+            
+        }
+        
+        mainTableViewIsDown = false
+        mainTableViewIsAnimating = false
+        
+    }
+    
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         moveTableView()
         limitViewLabel.textColor = UIColor.blackColor()
@@ -187,6 +287,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }, completion: { (value: Bool) in
                 self.mainTableViewIsDown = true
                 self.mainTableViewIsAnimating = false
+                self.leftPickerView.userInteractionEnabled = true
+                self.rightPickerView.userInteractionEnabled = true
         })
 
     }
@@ -200,9 +302,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let tableHeight = self.mainTableView.frame.size.height
             self.mainTableView.frame = CGRectMake(x, y, tableWidth, tableHeight)
             }, completion: { (value: Bool) in
-                //self.limitPickerView.removeFromSuperview()
                 self.mainTableViewIsDown = false
                 self.mainTableViewIsAnimating = false
+                self.leftPickerView.userInteractionEnabled = false
+                self.rightPickerView.userInteractionEnabled = false
         })
 
     }
