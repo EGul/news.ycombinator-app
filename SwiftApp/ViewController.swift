@@ -168,7 +168,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             leftPickerView.selectRow(leftPickerViewSelectedRow, inComponent: 0, animated: false)
             rightPickerView.selectRow(rightPickerViewSelectedRow, inComponent: 0, animated: false)
             
-            mainTableView.frame = CGRectMake(0, limitViewSpace, width, height)
+            mainTableView.frame = CGRectMake(0, limitViewSpace, width, height - limitViewSpace)
             
         }
         
@@ -209,7 +209,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             leftPickerView.selectRow(leftPickerViewSelectedRow, inComponent: 0, animated: false)
             rightPickerView.selectRow(rightPickerViewSelectedRow, inComponent: 0, animated: false)
             
-            mainTableView.frame = CGRectMake(0, limitViewSpace, height, width)
+            mainTableView.frame = CGRectMake(0, limitViewSpace, height, width - limitViewSpace)
             
         }
         
