@@ -27,6 +27,7 @@ class  SelectViewController: UIViewController {
         self.view.backgroundColor = UIColor.whiteColor()
         
         webView = UIWebView(frame: CGRectMake(0, 0, width, height))
+        webView.scalesPageToFit = true
         
         let req = NSURLRequest(URL: NSURL(string: storyURL)!)
         webView.loadRequest(req)
