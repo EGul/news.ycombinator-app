@@ -122,10 +122,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Dispose of any resources that can be recreated.
     }
     
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        
-    }
-    
     func rotated() {
         
         let orientation = UIDevice.currentDevice().orientation
