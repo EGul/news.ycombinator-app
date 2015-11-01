@@ -351,7 +351,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
-        let cell = UITableViewCell()
+        let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: mainTableViewCellIdentifier)
 
         let row = indexPath.row
 
