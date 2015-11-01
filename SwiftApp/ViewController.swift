@@ -122,7 +122,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Dispose of any resources that can be recreated.
     }
     
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        
+    }
+    
     func rotated() {
+        
+        let orientation = UIDevice.currentDevice().orientation
+        
+        if (orientation == UIDeviceOrientation.FaceUp ||
+            orientation == UIDeviceOrientation.FaceDown ||
+            orientation == UIDeviceOrientation.Unknown) {
+            return
+        }
         
         let statusHeight = UIApplication.sharedApplication().statusBarFrame.height
         let navHeight = self.navigationController?.navigationBar.frame.size.height
@@ -134,7 +146,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         var toLeftPickerView = UIPickerView()
         var toRightPickerView = UIPickerView()
         
-        if UIDevice.currentDevice().orientation == UIDeviceOrientation.Portrait {
+        if orientation == UIDeviceOrientation.Portrait {
             
             limitView.frame = CGRectMake(0, topHeight, width, 50)
             limitViewLabel.frame = CGRectMake(0, 0, width, 50)
@@ -158,7 +170,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         }
         
-        if UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation) {
+        if UIDeviceOrientationIsLandscape(orientation) {
             
             limitView.frame = CGRectMake(0, topHeight, height, 50)
             limitViewLabel.frame = CGRectMake(0, 0, height, 50)
