@@ -131,6 +131,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let leftPickerViewSelectedRow = leftPickerView.selectedRowInComponent(0)
         let rightPickerViewSelectedRow = rightPickerView.selectedRowInComponent(0)
         
+        var toLeftPickerView = UIPickerView()
+        var toRightPickerView = UIPickerView()
+        
         if UIDevice.currentDevice().orientation == UIDeviceOrientation.Portrait {
             
             limitView.frame = CGRectMake(0, topHeight, width, 50)
@@ -143,30 +146,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             let limitPickerLabelSpace = limitIntervalLabel.frame.origin.y + limitIntervalLabel.frame.size.height
             
-            let toLeftPickerView = UIPickerView(frame: CGRectMake(0, limitPickerLabelSpace, width / 2, leftPickerView.frame.size.height))
+            toLeftPickerView = UIPickerView(frame: CGRectMake(0, limitPickerLabelSpace, width / 2, leftPickerView.frame.size.height))
             toLeftPickerView.layer.zPosition = -100
             toLeftPickerView.userInteractionEnabled = false
             
-            let toRightPickerView = UIPickerView(frame: CGRectMake(width / 2, limitPickerLabelSpace, width / 2, leftPickerView.frame.size.height))
+            toRightPickerView = UIPickerView(frame: CGRectMake(width / 2, limitPickerLabelSpace, width / 2, leftPickerView.frame.size.height))
             toRightPickerView.layer.zPosition = -100
             toRightPickerView.userInteractionEnabled = false
-            
-            leftPickerView.removeFromSuperview()
-            self.view.addSubview(toLeftPickerView)
-            leftPickerView = toLeftPickerView
-            
-            rightPickerView.removeFromSuperview()
-            self.view.addSubview(toRightPickerView)
-            rightPickerView = toRightPickerView
-            
-            leftPickerView.delegate = self
-            leftPickerView.dataSource = self
-            
-            rightPickerView.delegate = self
-            rightPickerView.dataSource = self
-            
-            leftPickerView.selectRow(leftPickerViewSelectedRow, inComponent: 0, animated: false)
-            rightPickerView.selectRow(rightPickerViewSelectedRow, inComponent: 0, animated: false)
             
             mainTableView.frame = CGRectMake(0, limitViewSpace, width, height - limitViewSpace)
             
@@ -184,34 +170,34 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             let limitPickerLabelSpace = limitIntervalLabel.frame.origin.y + limitIntervalLabel.frame.size.height
             
-            let toLeftPickerView = UIPickerView(frame: CGRectMake(0, limitPickerLabelSpace, height / 2, leftPickerView.frame.size.height))
+            toLeftPickerView = UIPickerView(frame: CGRectMake(0, limitPickerLabelSpace, height / 2, leftPickerView.frame.size.height))
             toLeftPickerView.layer.zPosition = -100
             toLeftPickerView.userInteractionEnabled = false
             
-            let toRightPickerView = UIPickerView(frame: CGRectMake(height / 2, limitPickerLabelSpace, height / 2, leftPickerView.frame.size.height))
+            toRightPickerView = UIPickerView(frame: CGRectMake(height / 2, limitPickerLabelSpace, height / 2, leftPickerView.frame.size.height))
             toRightPickerView.layer.zPosition = -100
             toRightPickerView.userInteractionEnabled = false
-            
-            leftPickerView.removeFromSuperview()
-            self.view.addSubview(toLeftPickerView)
-            leftPickerView = toLeftPickerView
-            
-            rightPickerView.removeFromSuperview()
-            self.view.addSubview(toRightPickerView)
-            rightPickerView = toRightPickerView
-            
-            leftPickerView.delegate = self
-            leftPickerView.dataSource = self
-            
-            rightPickerView.delegate = self
-            rightPickerView.dataSource = self
-            
-            leftPickerView.selectRow(leftPickerViewSelectedRow, inComponent: 0, animated: false)
-            rightPickerView.selectRow(rightPickerViewSelectedRow, inComponent: 0, animated: false)
             
             mainTableView.frame = CGRectMake(0, limitViewSpace, height, width - limitViewSpace)
             
         }
+        
+        leftPickerView.removeFromSuperview()
+        self.view.addSubview(toLeftPickerView)
+        leftPickerView = toLeftPickerView
+        
+        rightPickerView.removeFromSuperview()
+        self.view.addSubview(toRightPickerView)
+        rightPickerView = toRightPickerView
+        
+        leftPickerView.delegate = self
+        leftPickerView.dataSource = self
+        
+        rightPickerView.delegate = self
+        rightPickerView.dataSource = self
+        
+        leftPickerView.selectRow(leftPickerViewSelectedRow, inComponent: 0, animated: false)
+        rightPickerView.selectRow(rightPickerViewSelectedRow, inComponent: 0, animated: false)
         
         mainTableViewIsDown = false
         mainTableViewIsAnimating = false
