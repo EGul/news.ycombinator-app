@@ -389,7 +389,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
 
             let row = indexPath.row
-            let storyURL = dataArr[row].valueForKey("url") as? String
+            var storyURL = dataArr[row].valueForKey("url") as? String
+            
+            if storyURL == nil {
+                storyURL = "https://news.ycombinator.com/item?id=" + String(dataArr[row].valueForKey("id")!)
+            }
 
             let selectViewController = SelectViewController()
             selectViewController.storyURL = storyURL!
