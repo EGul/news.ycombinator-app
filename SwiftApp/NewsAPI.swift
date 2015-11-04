@@ -14,23 +14,24 @@ class NewsAPI {
     let idsURL = "http://hacker-news.firebaseio.com/v0/topstories.json"
     let storyURL = "https://hacker-news.firebaseio.com/v0/item/"
     
-    func getTopStories(completion: (result: NSMutableArray, error: NSError?) -> Void) {
+    func getTopStories(completion: (result: [NSDictionary], error: NSError?) -> Void) {
         
-        getTopStoryIds( { (result: NSArray) in
+        getTopStoryIds( { (result: [String]) in
             
-            let toResult: NSMutableArray = []
+            var toResult: [String] = []
             for i in 0...29 {
-                toResult.addObject(result[i])
+                toResult.append(result[i])
             }
             
-            self.getStoriesFromIds(toResult, completion: { (result: NSMutableArray) in
+            self.getStoriesFromIds(toResult, completion: { (result: [NSDictionary]) in
+                
                 completion(result: result, error: nil)
-            }, error: { (err: NSError?) in
-                completion(result: [], error: err)
+                }, error: { (err: NSError?) in
+                    completion(result: [], error: err)
             })
             
-        }, error: { (error: NSError?) in
-            completion(result: [], error: error)
+            }, error: { (error: NSError?) in
+                completion(result: [], error: error)
         })
         
     }
@@ -52,11 +53,19 @@ class NewsAPI {
         
     }
     
-    func dataToArray(data: NSData?, completion: (result: NSArray) -> Void) {
+    func dataToArray(data: NSData?, completion: (result: [String]) -> Void) {
         
         do {
             if let arr = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as? NSArray {
-                completion(result: arr)
+                
+                var toArray: [String] = []
+                
+                for e in arr {
+                    toArray.append(NSString(format: "%d", (e as? Int)!) as String)
+                }
+                
+                completion(result: toArray)
+                
             }
             
         } catch {
@@ -78,14 +87,16 @@ class NewsAPI {
         
     }
     
-    func getTopStoryIds(completion: (result: NSArray) -> Void, error: (error: NSError?) -> Void) {
+    func getTopStoryIds(completion: (result: [String]) -> Void, error: (error: NSError?) -> Void) {
         
         let url = NSURL(string: idsURL)
         
         get(url!, completion: { (data: NSData?) in
             
-            self.dataToArray(data) { (result: NSArray) in
+            self.dataToArray(data) { (result: [String]) in
+                
                 completion(result: result)
+                
             }
             
         }, error: { (err: NSError?) in
@@ -94,25 +105,24 @@ class NewsAPI {
         
     }
     
-    func getStoriesFromIds(ids: NSMutableArray, completion: (result: NSMutableArray) -> Void, error: (error: NSError?) -> Void) {
+    func getStoriesFromIds(var ids: [String], completion: (result: [NSDictionary]) -> Void, error: (error: NSError?) -> Void) {
         
         if ids.count == 0 {
-            completion(result: NSMutableArray())
+            completion(result: [NSDictionary]())
         }
         else {
             
-            let current = String(ids[0])
-            ids.removeObjectAtIndex(0)
+            let current = (ids.removeFirst())
             
-            let tempArr = NSMutableArray()
+            var tempArr: [NSDictionary] = []
             
             getStoryFromId(current, completion: { (result: NSDictionary) in
                 
-                tempArr.addObject(result)
+                tempArr.append(result)
                 
-                self.getStoriesFromIds(ids, completion: { (result: NSMutableArray) in
+                self.getStoriesFromIds(ids, completion: { (result: [NSDictionary]) in
                     
-                    tempArr.addObjectsFromArray(result as [AnyObject])
+                    tempArr += result
                     
                     completion(result: tempArr)
                     

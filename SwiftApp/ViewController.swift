@@ -9,8 +9,8 @@
 import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
-
-    var dataArr = NSMutableArray()
+    
+    var dataArr: [NSDictionary] = []
     
     let width = UIScreen.mainScreen().bounds.size.width
     let height = UIScreen.mainScreen().bounds.size.height
@@ -100,18 +100,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.view.addSubview(leftPickerView)
         self.view.addSubview(rightPickerView)
         self.view.addSubview(mainTableView)
-
-        newsAPI.getTopStories() { (result: NSMutableArray, error: NSError?) in
-
+        
+        newsAPI.getTopStories() { (result: [NSDictionary], error: NSError?) in
+            
             if (error == nil) {
-
+                
                 self.dataArr = result
                 dispatch_async(dispatch_get_main_queue()) {
                     self.mainTableView.reloadData()
                 }
-
+                
             }
-
+            
         }
 
         // Do any additional setup after loading the view, typically from a nib.
@@ -333,8 +333,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func refresh() {
-
-        newsAPI.getTopStories() { (result: NSMutableArray, error: NSError?) in
+        
+        newsAPI.getTopStories() { (result: [NSDictionary], error: NSError?) in
             if (error == nil) {
                 self.refreshControl.endRefreshing()
                 self.dataArr = result
