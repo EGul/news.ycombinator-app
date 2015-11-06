@@ -351,10 +351,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func getFormattedURL(index: Int) -> String {
         
-        var storyURL = dataArr[index].valueForKey("url") as? String
+        var storyURL = NSURL(string: (dataArr[index].valueForKey("url") as? String)!)!.host
         
         if storyURL == nil {
-            storyURL = "https://news.ycombinator.com/item?id=" + String(dataArr[index].valueForKey("id")!)
+            storyURL = "news.ycombinator.com"
         }
         
         storyURL! = storyURL!.stringByReplacingOccurrencesOfString("http://", withString: "")
