@@ -356,6 +356,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataArr.count
     }
+    
+    func getURL(index: Int) -> String {
+        
+        var storyURL = dataArr[index].valueForKey("url") as? String
+        
+        if storyURL == nil {
+            storyURL = "https://news.ycombinator.com/item?id=" + String(dataArr[index].valueForKey("id")!)
+        }
+        
+        return storyURL!
+    }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -363,10 +374,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if cell == nil {
             cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: mainTableViewCellIdentifier)
+            cell!.textLabel?.numberOfLines = 2
         }
         
         cell!.textLabel?.text = dataArr[indexPath.row].valueForKey("title") as? String
-
+        
         return cell!
     }
 
