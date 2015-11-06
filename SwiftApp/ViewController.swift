@@ -328,7 +328,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             limitViewLabel.text = "you can read as many stories as you want!"
         }
         else {
-            limitViewLabel.text = String(limitCount) + " of " + String(maxLimit) + " stories read"
+            limitViewLabel.text = String(limitCount) + " of " + String(maxLimit) + " stories left"
         }
     }
 
