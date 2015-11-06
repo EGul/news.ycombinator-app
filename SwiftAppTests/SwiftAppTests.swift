@@ -27,7 +27,7 @@ class SwiftAppTests: XCTestCase {
         
         let newsAPI = NewsAPI()
         
-        newsAPI.getTopStories() { (result: NSMutableArray, error: NSError?) in
+        newsAPI.getTopStories() { (result: [NSDictionary], error: NSError?) in
             XCTAssertEqual(30, result.count)
             expectation.fulfill()
         }
