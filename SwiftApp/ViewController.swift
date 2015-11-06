@@ -348,6 +348,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
 
     }
+    
+    func getFormattedURL(index: Int) -> String {
+        
+        var storyURL = dataArr[index].valueForKey("url") as? String
+        
+        if storyURL == nil {
+            storyURL = "https://news.ycombinator.com/item?id=" + String(dataArr[index].valueForKey("id")!)
+        }
+        
+        storyURL! = storyURL!.stringByReplacingOccurrencesOfString("http://", withString: "")
+        storyURL! = storyURL!.stringByReplacingOccurrencesOfString("https://", withString: "")
+        storyURL! = storyURL!.stringByReplacingOccurrencesOfString("www.", withString: "")
+        
+        return storyURL!
+    }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -357,15 +372,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return dataArr.count
     }
     
-    func getURL(index: Int) -> String {
-        
-        var storyURL = dataArr[index].valueForKey("url") as? String
-        
-        if storyURL == nil {
-            storyURL = "https://news.ycombinator.com/item?id=" + String(dataArr[index].valueForKey("id")!)
-        }
-        
-        return storyURL!
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 100
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -373,11 +381,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         var cell = tableView.dequeueReusableCellWithIdentifier(mainTableViewCellIdentifier)
         
         if cell == nil {
-            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: mainTableViewCellIdentifier)
-            cell!.textLabel?.numberOfLines = 2
+            cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: mainTableViewCellIdentifier)
+            cell!.textLabel?.numberOfLines = 3
+            cell!.detailTextLabel?.numberOfLines = 3
+            cell!.detailTextLabel?.textColor = UIColor.grayColor()
         }
         
         cell!.textLabel?.text = dataArr[indexPath.row].valueForKey("title") as? String
+        cell!.detailTextLabel?.text = getFormattedURL(indexPath.row)
         
         return cell!
     }
