@@ -358,17 +358,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        var cell = tableView.dequeueReusableCellWithIdentifier(mainTableViewCellIdentifier)
+        
+        if cell == nil {
+            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: mainTableViewCellIdentifier)
+        }
+        
+        cell!.textLabel?.text = dataArr[indexPath.row].valueForKey("title") as? String
 
-        let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: mainTableViewCellIdentifier)
-
-        let row = indexPath.row
-
-        var cellText = String(row) + ": "
-        cellText += (dataArr[row].valueForKey("title") as? String)!
-
-        cell.textLabel?.text = dataArr[row].valueForKey("title") as? String
-
-        return cell
+        return cell!
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
