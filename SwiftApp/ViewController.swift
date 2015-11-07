@@ -351,17 +351,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func getFormattedURL(index: Int) -> String {
         
-        var storyURL = NSURL(string: (dataArr[index].valueForKey("url") as? String)!)!.host
+        var storyURL: String
         
-        if storyURL == nil {
+        if dataArr[index].valueForKey("url") == nil {
             storyURL = "news.ycombinator.com"
         }
+        else {
+            storyURL = NSURL(string: String(dataArr[index].valueForKey("url")!))!.host!
+        }
         
-        storyURL! = storyURL!.stringByReplacingOccurrencesOfString("http://", withString: "")
-        storyURL! = storyURL!.stringByReplacingOccurrencesOfString("https://", withString: "")
-        storyURL! = storyURL!.stringByReplacingOccurrencesOfString("www.", withString: "")
+        storyURL = storyURL.stringByReplacingOccurrencesOfString("http://", withString: "")
+        storyURL = storyURL.stringByReplacingOccurrencesOfString("https://", withString: "")
+        storyURL = storyURL.stringByReplacingOccurrencesOfString("www.", withString: "")
         
-        return storyURL!
+        return storyURL
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
