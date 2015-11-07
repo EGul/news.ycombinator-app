@@ -366,6 +366,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         return storyURL
     }
+    
+    func getTimeSincePost(num: Int) -> String {
+        
+        let diff = (Int(NSDate().timeIntervalSince1970) - num) / 60
+        
+        if diff == 0 {
+            return "a moment ago"
+        }
+        
+        if diff < 60 {
+            return String(diff) + " minutes ago"
+        }
+        
+        return String(diff / 60) + " hours ago"
+    }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -381,17 +396,34 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
+        let row = indexPath.row
+        
         var cell = tableView.dequeueReusableCellWithIdentifier(mainTableViewCellIdentifier)
         
         if cell == nil {
             cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: mainTableViewCellIdentifier)
             cell!.textLabel?.numberOfLines = 3
-            cell!.detailTextLabel?.numberOfLines = 3
+            cell!.detailTextLabel?.numberOfLines = 4
             cell!.detailTextLabel?.textColor = UIColor.grayColor()
         }
         
-        cell!.textLabel?.text = dataArr[indexPath.row].valueForKey("title") as? String
-        cell!.detailTextLabel?.text = getFormattedURL(indexPath.row)
+        var detailText = getFormattedURL(row) + "\n"
+        
+        if let score = dataArr[row].valueForKey("score") {
+            detailText += String(score) + " points"
+        }
+        if let by = dataArr[row].valueForKey("by") {
+            detailText += " by " + String(by)
+        }
+        if let time = dataArr[row].valueForKey("time") {
+            detailText += " " + getTimeSincePost(Int(String(time))!)
+        }
+        if let descendants = dataArr[row].valueForKey("descendants") {
+            detailText += " | " + String(descendants) + " comments"
+        }
+        
+        cell!.textLabel?.text = dataArr[row].valueForKey("title") as? String
+        cell!.detailTextLabel?.text = detailText
         
         return cell!
     }
