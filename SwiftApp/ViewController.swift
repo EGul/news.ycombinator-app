@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var dataArr: [NSDictionary] = []
+    var selectedArr: [String] = []
     
     let width = UIScreen.mainScreen().bounds.size.width
     let height = UIScreen.mainScreen().bounds.size.height
@@ -407,6 +408,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cell!.detailTextLabel?.textColor = UIColor.grayColor()
         }
         
+        if selectedArr.contains(String(dataArr[row].valueForKey("id")!)) == false {
+            cell!.textLabel?.textColor = UIColor.blackColor()
+        }
+        else {
+            cell!.textLabel?.textColor = UIColor.grayColor()
+        }
+        
         var detailText = getFormattedURL(row) + "\n"
         
         if let score = dataArr[row].valueForKey("score") {
@@ -444,7 +452,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 setLimitLabelText()
 
             }
-
+            
+            if selectedArr.contains(String(dataArr[indexPath.row].valueForKey("id"))) == false {
+                selectedArr.append(String(dataArr[indexPath.row].valueForKey("id")!))
+                tableView.cellForRowAtIndexPath(indexPath)!.textLabel?.textColor = UIColor.grayColor()
+            }
+            
             let row = indexPath.row
             var storyURL = dataArr[row].valueForKey("url") as? String
             
