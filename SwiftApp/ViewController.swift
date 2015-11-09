@@ -496,7 +496,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         else {
             var tempString = rightPickerViewData[row]
-            tempString = tempString.substringToIndex(advance(tempString.endIndex, -3))
+            tempString = tempString.substringToIndex(tempString.endIndex.advancedBy(-3))
             rightPickerViewInterval = Double(tempString)! * 60
         }
     }
