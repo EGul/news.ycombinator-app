@@ -11,7 +11,7 @@ import UIKit
 
 class NewsAPI {
     
-    let idsURL = "http://hacker-news.firebaseio.com/v0/topstories.json"
+    let idsURL = "https://hacker-news.firebaseio.com/v0/topstories.json"
     let storyURL = "https://hacker-news.firebaseio.com/v0/item/"
     
     func getTopStories(completion: (result: [NSDictionary], error: NSError?) -> Void) {

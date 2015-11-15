@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4938F55EA57DAED34EEFEB4B /* libPods-SwiftApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03C36984C040980D94420663 /* libPods-SwiftApp.a */; };
 		765585071BE1A64400E4A93E /* NewsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765585061BE1A64400E4A93E /* NewsAPI.swift */; };
 		766118721BE1A3B1005D6B9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766118711BE1A3B1005D6B9C /* AppDelegate.swift */; };
 		766118741BE1A3B1005D6B9C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766118731BE1A3B1005D6B9C /* ViewController.swift */; };
@@ -16,7 +17,6 @@
 		766118871BE1A3B1005D6B9C /* SwiftAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766118861BE1A3B1005D6B9C /* SwiftAppTests.swift */; };
 		766118921BE1A3B2005D6B9C /* SwiftAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766118911BE1A3B2005D6B9C /* SwiftAppUITests.swift */; };
 		7692C2F51BE1B5F400F40106 /* SelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7692C2F41BE1B5F400F40106 /* SelectViewController.swift */; };
-		DF9A9C418A5BEFAE35A58887 /* libPods-SwiftApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6DD237D7FD78C718112669E /* libPods-SwiftApp.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03C36984C040980D94420663 /* libPods-SwiftApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwiftApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		765585061BE1A64400E4A93E /* NewsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsAPI.swift; sourceTree = "<group>"; };
 		7661186E1BE1A3B1005D6B9C /* SwiftApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		766118711BE1A3B1005D6B9C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -63,7 +64,6 @@
 		7692C30A1BE1C80800F40106 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		7692C30C1BE1C98F00F40106 /* Firebase-Bridging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Firebase-Bridging.h"; sourceTree = "<group>"; };
 		A4F6C21779DEC208B472CE71 /* Pods-SwiftApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftApp/Pods-SwiftApp.debug.xcconfig"; sourceTree = "<group>"; };
-		C6DD237D7FD78C718112669E /* libPods-SwiftApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwiftApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E379473B1771028A952A5EAF /* Pods-SwiftApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftApp/Pods-SwiftApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,7 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF9A9C418A5BEFAE35A58887 /* libPods-SwiftApp.a in Frameworks */,
+				4938F55EA57DAED34EEFEB4B /* libPods-SwiftApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,7 +105,7 @@
 				7692C2FE1BE1C7E700F40106 /* libicucore.tbd */,
 				7692C2FC1BE1C7E000F40106 /* libicucore.A.tbd */,
 				7692C2F61BE1C38A00F40106 /* libFirebase.a */,
-				C6DD237D7FD78C718112669E /* libPods-SwiftApp.a */,
+				03C36984C040980D94420663 /* libPods-SwiftApp.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
