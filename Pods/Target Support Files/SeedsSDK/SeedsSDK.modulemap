@@ -1,0 +1,6 @@
+framework module SeedsSDK {
+  umbrella header "SeedsSDK-umbrella.h"
+
+  export *
+  module * { export * }
+}

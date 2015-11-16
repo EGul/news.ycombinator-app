@@ -82,3 +82,14 @@ strip_invalid_archs() {
   fi
 }
 
+
+if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-SwiftApp/Firebase.framework"
+  install_framework "Pods-SwiftApp/Reachability.framework"
+  install_framework "Pods-SwiftApp/SeedsSDK.framework"
+fi
+if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-SwiftApp/Firebase.framework"
+  install_framework "Pods-SwiftApp/Reachability.framework"
+  install_framework "Pods-SwiftApp/SeedsSDK.framework"
+fi

@@ -1,0 +1,1 @@
+../../../SeedsSDK/SDK/InAppMessaging/CustomEvents/MFCustomEventBannerDelegate.h

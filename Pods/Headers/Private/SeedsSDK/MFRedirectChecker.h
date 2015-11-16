@@ -1,0 +1,1 @@
+../../../SeedsSDK/SDK/InAppMessaging/MFRedirectChecker.h

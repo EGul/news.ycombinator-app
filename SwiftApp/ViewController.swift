@@ -8,6 +8,8 @@
 
 import UIKit
 
+import Reachability
+
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var dataArr: [NSDictionary] = []
@@ -40,6 +42,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let mainTableViewCellIdentifier = "something"
 
     let newsAPI = NewsAPI()
+    
+    var seedsAdCount = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,10 +118,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             
         }
-
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -467,6 +471,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
             let selectViewController = SelectViewController()
             selectViewController.storyURL = storyURL!
+            
+            seedsAdCount++
+            if seedsAdCount > 4 {
+                selectViewController.createAd = true
+                seedsAdCount = 0
+            }
 
             self.navigationController?.pushViewController(selectViewController, animated: true)
 
