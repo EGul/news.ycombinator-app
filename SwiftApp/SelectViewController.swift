@@ -9,9 +9,7 @@
 import Foundation
 import UIKit
 
-import Reachability
-
-class  SelectViewController: UIViewController, SeedsWrapperProtocol, IAPTableViewDelegate {
+class  SelectViewController: UIViewController {
     
     let width = UIScreen.mainScreen().bounds.size.width
     let height = UIScreen.mainScreen().bounds.size.height
@@ -19,11 +17,6 @@ class  SelectViewController: UIViewController, SeedsWrapperProtocol, IAPTableVie
     var storyURL = ""
     
     var webView = UIWebView()
-    
-    var reach: Reachability?
-    
-    var createAd = false
-    var showIAPView = false
     
     override func viewDidLoad() {
         
@@ -41,51 +34,6 @@ class  SelectViewController: UIViewController, SeedsWrapperProtocol, IAPTableVie
         
         self.view.addSubview(webView)
         
-        self.reach = Reachability.reachabilityForInternetConnection()
-        
-        self.reach!.startNotifier()
-        
-        if createAd && reach!.isReachable() {
-            SeedsWrapper().delegate = self
-            Seeds.sharedInstance().requestInAppMessage()
-        }
-        
-    }
-    
-    func iapDidMakePurchase(amount: String) {
-        
-        let alertController = UIAlertController(title: "Thank You For Your Purchase!", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alertController, animated: true, completion: nil)
-        
-        /*
-        in app purchase code would go here
-        seeds sdk request to iap endpoint would go here
-        */
-        
-    }
-    
-    func seedsWrapperInAppMessageClicked() {
-        showIAPView = true
-    }
-    
-    func seedsWrapperInAppMessageClosed() {
-        if showIAPView {
-            let iapTableView = IAPTableViewController()
-            iapTableView.delegate = self
-            self.navigationController?.pushViewController(iapTableView, animated: true)
-            showIAPView = false
-        }
-    }
-    
-    func seedsWrapperInAppMessageLoadSucceeded() {
-        Seeds.sharedInstance().showInAppMessageIn(self)
-    }
-    
-    func seedsWrapperInAppMessageShown() {
-    }
-    
-    func seedsWrapperNoInAppMessageFound() {
     }
     
     func rotated() {

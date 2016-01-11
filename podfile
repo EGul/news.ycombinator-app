@@ -5,12 +5,7 @@
 
 target 'SwiftApp' do
 
-use_frameworks!
-
 pod 'Firebase', '>= 2.4.2'
-pod 'SeedsSDK'
-#pod 'ReachabilitySwift', git: 'https://github.com/ashleymills/Reachability.swift'
-pod 'Reachability'
 
 end
 

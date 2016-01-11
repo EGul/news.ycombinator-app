@@ -1,16 +1,10 @@
 PODS:
   - Firebase (2.4.2)
-  - Reachability (3.2)
-  - SeedsSDK (0.3.1)
 
 DEPENDENCIES:
   - Firebase (>= 2.4.2)
-  - Reachability
-  - SeedsSDK
 
 SPEC CHECKSUMS:
   Firebase: 5e898ed5012c81d28ca5fae1113c6b61a172bc6d
-  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  SeedsSDK: 88e753a76cb6873fd9a5c8b78c6cd0bb031943ad
 
 COCOAPODS: 0.39.0

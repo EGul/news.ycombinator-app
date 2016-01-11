@@ -8,10 +8,6 @@
 
 //#import <Firebase/Firebase.h>
 
-#import "SeedsWrapper.h"
-#import "Seeds.h"
-#import "SeedsInAppMessageDelegate.h"
-
 #ifndef Firebase_Bridging_h
 #define Firebase_Bridging_h
 
