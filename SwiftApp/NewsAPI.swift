@@ -18,12 +18,7 @@ class NewsAPI {
         
         getTopStoryIds( { (result: [String]) in
             
-            var toResult: [String] = []
-            for i in 0...29 {
-                toResult.append(result[i])
-            }
-            
-            self.getStoriesFromIds(toResult, completion: { (result: [NSDictionary]) in
+            self.getStoriesFromIds(Array(result[0..<30]), completion: { (result: [NSDictionary]) in
                 
                 completion(result: result, error: nil)
                 }, error: { (err: NSError?) in
